@@ -20,6 +20,7 @@ export const Bounty = () => {
                 </tr>
                 </thead>
                 <tbody>{
+                    locations.filter((l) => l.isFound).length &&
                     locations.map(l => {
                         if (!l.isFound) return;
 
