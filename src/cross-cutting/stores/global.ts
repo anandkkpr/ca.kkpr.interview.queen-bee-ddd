@@ -6,12 +6,6 @@ import {WarehouseUnitDtoType} from "../../bounded-contexts/warehouse/warehouse.t
 import {randomIntFromMinMax} from "../utils/numbers.utils.ts";
 import {sleep} from "../utils/timers.utils.ts";
 
-type PopulationStore = {
-    population: DenizenDtoType[],
-    dispatchScout: () => DenizenDtoType | null,
-    dispatchHarvester: () => DenizenDtoType | null,
-}
-
 const handleWorkerDispatch = (
     workerType: DenizenRolesWorkersEnumDtoType,
     set: StoreApi<PopulationStore>['setState'],
@@ -47,22 +41,57 @@ const handleWorkerDispatch = (
     return null;
 };
 
-export const usePopulationStore = create<PopulationStore>((set, get) => {
+type PopulationStore = {
+    population: DenizenDtoType[],
+    dispatchScout: () => DenizenDtoType | null,
+    dispatchHarvester: () => DenizenDtoType | null,
+}
+export const usePopulationStore = create<PopulationStore>()((setState, getState) => {
     return {
         population,
         dispatchScout: () => {
-            return handleWorkerDispatch('scout', set, get);
+            return handleWorkerDispatch('scout', setState, getState);
         },
         dispatchHarvester: () => {
-            return handleWorkerDispatch('harvester', set, get);
+            return handleWorkerDispatch('harvester', setState, getState);
         },
     };
 });
 
-export const useLocationsStore = create<LocationDtoType[]>(() => {
-    return locations;
+type LocationsStore = {
+    locations: LocationDtoType[],
+    updateLocation: () => Promise<LocationDtoType | null>,
+}
+export const useLocationsStore = create<LocationsStore>()((setState, getState) => {
+    return {
+        locations: locations,
+        updateLocation: async () => {
+            await sleep(randomIntFromMinMax(2, 4));
+
+            const bountyLocations =
+                getState().locations.filter(
+                    (l: LocationDtoType) => !l.isFound
+                );
+
+            if (bountyLocations.length > 0) {
+                const foundLocation = bountyLocations[0];
+
+                setState((state: { locations: LocationDtoType[]; }) => {
+                    const locationIndex =
+                        state.locations.findIndex(l => l.uuid === foundLocation.uuid);
+                    state.locations[locationIndex].isFound = !state.locations[locationIndex].isFound;
+
+                    return {locations: state.locations}
+                });
+
+                return foundLocation;
+            }
+
+            return null;
+        }
+    }
 });
 
-export const useWarehousesStore = create<WarehouseUnitDtoType[]>(() => {
+export const useWarehousesStore = create<WarehouseUnitDtoType[]>()(() => {
     return warehouses;
 });

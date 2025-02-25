@@ -72,6 +72,7 @@ export const locations: LocationDtoType[] = [
     {
         uuid: '64e8cef6-3106-4817-a93c-36e91ac8c423',
         name: 'Tamara\'s Garden',
+        isFound: false,
         pollenBounty: [
             {
                 uuid: 'afae15f4-3f66-45ee-8f57-07cd3840cedb',
@@ -82,6 +83,7 @@ export const locations: LocationDtoType[] = [
     {
         uuid: 'bdf22c36-703e-4f37-976e-a340f12307b6',
         name: 'Flinnley Peak',
+        isFound: false,
         pollenBounty: [
             {
                 uuid: 'c6e38cde-2458-42b8-88bf-c8d0b62fcbda',
@@ -92,6 +94,7 @@ export const locations: LocationDtoType[] = [
     {
         uuid: 'eb601eaa-b052-4bad-b69d-93614384925b',
         name: 'Downton Abbey',
+        isFound: false,
         pollenBounty: [
             {
                 uuid: '53f4ab96-b4a9-4bfd-9c7d-a639e6603420',

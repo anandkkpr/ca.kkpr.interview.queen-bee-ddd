@@ -11,5 +11,6 @@ export const LocationDto = z.object({
     uuid: UuidDto,
     name: z.string(),
     pollenBounty: z.array(PollenCacheDto),
+    isFound: z.boolean(),
 })
 export type LocationDtoType = z.infer<typeof LocationDto>;

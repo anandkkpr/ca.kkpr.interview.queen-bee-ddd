@@ -7,21 +7,24 @@ export const Warehouse = () => {
             <hr className='my-2'/>
             <p className='mb-4'>Cache units are in Grams (gm).</p>
             <table className='flex flex-col'>
-                <th className='grid grid-cols-6 text-center font-bold'>
-                    <td>Unit Name</td>
-                    <td>Unit ID</td>
-                    <td>Date Accessed</td>
-                    <td>Max Capacity</td>
-                    <td>Cache Total</td>
-                    <td>Cache Remaining</td>
-                </th>
+                <thead>
+                <tr className='grid grid-cols-6 text-center font-bold'>
+                    <th>Unit Name</th>
+                    <th>Unit ID</th>
+                    <th>Date Accessed</th>
+                    <th>Max Capacity</th>
+                    <th>Cache Total</th>
+                    <th>Cache Remaining</th>
+                </tr>
+                </thead>
+                <tbody>
                 {warehouses.map(w => {
                     let cacheGramTotal = 0;
 
                     w.pollenCache.forEach((p) => cacheGramTotal += p.grams);
 
                     return (
-                        <tr className='grid grid-cols-6 text-center text-[0.8rem]'>
+                        <tr key={w.uuid} className='grid grid-cols-6 text-center text-[0.8rem]'>
                             <td className='text-left font-bold'>{w.name}</td>
                             <td className=''>{w.uuid}</td>
                             <td>{w.dateUpdated}</td>
@@ -31,6 +34,7 @@ export const Warehouse = () => {
                         </tr>
                     )
                 })}
+                </tbody>
             </table>
         </>
     );

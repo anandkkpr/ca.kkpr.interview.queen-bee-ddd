@@ -9,11 +9,14 @@ export const Population = () => {
             <h2 className='text-2xl mb-2'>Population</h2>
             <hr className='mt-2 mb-4'/>
             <table className='flex flex-col'>
-                <th className='grid grid-cols-3 text-center text-sm font-bold'>
-                    <td>&nbsp;</td>
-                    <td>Scouts</td>
-                    <td>Harvesters</td>
-                </th>
+                <thead className='grid grid-cols-3 text-center text-sm font-bold'>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Scouts</th>
+                    <th>Harvesters</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr className='grid grid-cols-3 text-center'>
                     <td className='text-left font-bold'>Census Total</td>
                     <td>{population.filter(d => d.role == 'scout').length}</td>
@@ -37,6 +40,7 @@ export const Population = () => {
                         return !d.isHome && d.role == 'harvester'
                     }).length}</td>
                 </tr>
+                </tbody>
             </table>
         </>
     );

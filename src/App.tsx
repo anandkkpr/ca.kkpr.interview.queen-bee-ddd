@@ -3,15 +3,20 @@ import {Population} from "./bounded-contexts/population/Population.tsx";
 import {Bounty} from "./bounded-contexts/bounty/Bounty.tsx";
 import {Warehouse} from "./bounded-contexts/warehouse/Warehouse.tsx";
 import {SiteHeader} from "./cross-cutting/components/SiteHeader.tsx";
-import {usePopulationStore} from "./cross-cutting/stores/global.ts";
+import {useLocationsStore, usePopulationStore} from "./cross-cutting/stores/global.ts";
 import {toast, ToastContainer} from "react-toastify";
 
 function App() {
     const {dispatchScout, dispatchHarvester} = usePopulationStore();
+    const {updateLocation} = useLocationsStore();
 
     const dispatchScoutClickHandler = () => {
         const worker = dispatchScout();
-        if (worker) toast(`Scout Dispatched: ${worker.name}`);
+        if (worker) toast(`Scout Dispatched: ${worker.name}`, {position: "top-center"});
+
+        updateLocation().then((l) => {
+            if (l) toast(`Our Scout has found a Bounty Location!: ${l.name}`, {position: "bottom-center"});
+        });
     }
 
     const dispatchHarvesterClickHandler = () => {
@@ -33,7 +38,6 @@ function App() {
                             Dispatch Harvester
                         </button>
                         <ToastContainer
-                            position="top-center"
                             autoClose={1200}
                             newestOnTop={true}
                         />
