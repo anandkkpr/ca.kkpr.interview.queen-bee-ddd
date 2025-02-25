@@ -4,24 +4,39 @@ import {Bounty} from "./bounded-contexts/bounty/Bounty.tsx";
 import {Warehouse} from "./bounded-contexts/warehouse/Warehouse.tsx";
 import {SiteHeader} from "./cross-cutting/components/SiteHeader.tsx";
 import {usePopulationStore} from "./cross-cutting/stores/global.ts";
+import {toast, ToastContainer} from "react-toastify";
 
 function App() {
-    // noinspection JSUnusedLocalSymbols
     const {dispatchScout, dispatchHarvester} = usePopulationStore();
+
+    const dispatchScoutClickHandler = () => {
+        const worker = dispatchScout();
+        if (worker) toast(`Scout Dispatched: ${worker.name}`);
+    }
+
+    const dispatchHarvesterClickHandler = () => {
+        const worker = dispatchHarvester();
+        if (worker) toast(`Harvester Dispatched: ${worker.name}`);
+    }
 
     return (
         <>
-            <SiteHeader />
+            <SiteHeader/>
             <div className='grid grid-cols-12 gap-2'>
                 <div className="rounded-md col-span-4 border-2 border-violet-400 min-h-24 p-4">
                     <h2 className='text-2xl mb-4'>Control Panel</h2>
                     <div className='flex flex-col items-start'>
-                        <button className='mb-2 w-6/12' onClick={dispatchScout}>
+                        <button className='mb-2 w-6/12' onClick={dispatchScoutClickHandler}>
                             Dispatch Scout
                         </button>
-                        <button className='mb-2 w-6/12' onClick={dispatchHarvester}>
+                        <button className='mb-2 w-6/12' onClick={dispatchHarvesterClickHandler}>
                             Dispatch Harvester
                         </button>
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={1200}
+                            newestOnTop={true}
+                        />
                     </div>
                 </div>
                 <div className="rounded-md col-span-8 border-2 border-amber-800 min-h-24 p-4">

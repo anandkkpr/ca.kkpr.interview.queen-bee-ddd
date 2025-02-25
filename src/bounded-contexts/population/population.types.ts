@@ -3,11 +3,13 @@ import {IntegerPositiveDto, UuidDto} from "../../cross-cutting/types/cross-cutti
 
 export const DenizenRolesEnumDto = z.enum(['queen', 'harvester', 'scout']);
 export type DenizenRolesEnumDtoType = z.infer<typeof DenizenRolesEnumDto>;
+export const DenizenRolesWorkersEnum = DenizenRolesEnumDto.extract(['scout', 'harvester']);
+export type DenizenRolesWorkersEnumDtoType = z.infer<typeof DenizenRolesEnumDto>;
 
 export const DenizenDto = z.object({
     uuid: UuidDto,
     role: DenizenRolesEnumDto,
-    name: z.string().nullish(),
+    name: z.string(),
     bio: z.string().nullish(),
     carryCapacityInGrams: IntegerPositiveDto,
     isHome: z.boolean(),
