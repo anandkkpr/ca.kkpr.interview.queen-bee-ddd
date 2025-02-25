@@ -1,6 +1,9 @@
-import {population} from "../../_assets/data/db.ts";
+// noinspection JSUnusedLocalSymbols
+import {usePopulationStore} from "../../cross-cutting/stores/global.ts";
 
 export const Population = () => {
+    const {population} = usePopulationStore();
+
     return (
         <>
             <h2 className='text-2xl mb-2'>Population</h2>
