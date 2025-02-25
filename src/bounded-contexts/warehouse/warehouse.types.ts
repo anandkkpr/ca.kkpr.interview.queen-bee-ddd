@@ -1,14 +1,14 @@
 import {z} from "zod";
-import {UuidDto} from "../../cross-cutting/types/cross-cutting.types.ts";
+import {IntegerPositiveDto, UuidDto} from "../../cross-cutting/types/cross-cutting.types.ts";
 import {PollenCacheDto} from "../bounty/bounty.types.ts";
 
 
 export const WarehouseUnitDto = z.object({
     uuid: UuidDto,
-    pollenCache: PollenCacheDto,
+    name: z.string(),
+    dateUpdated: z.string(),
+    maxCapacityInGrams: IntegerPositiveDto,
+    pollenCache: z.array(PollenCacheDto),
 });
-export type CensusDtoType = z.infer<typeof WarehouseUnitDto>;
-
-export const WorkersInFieldDto = WarehouseUnitDto;
-export type WorkersInFieldDtoType = z.infer<typeof WarehouseUnitDto>;
+export type WarehouseUnitDtoType = z.infer<typeof WarehouseUnitDto>;
 

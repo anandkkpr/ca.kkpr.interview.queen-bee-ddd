@@ -3,12 +3,13 @@ import {IntegerPositiveDto, UuidDto} from "../../cross-cutting/types/cross-cutti
 
 export const PollenCacheDto = z.object({
     uuid: UuidDto,
-    cacheSizeInGrams: IntegerPositiveDto,
+    grams: IntegerPositiveDto,
 })
 export type PollenCacheDtoType = z.infer<typeof PollenCacheDto>;
 
 export const LocationDto = z.object({
     uuid: UuidDto,
+    name: z.string(),
     pollenBounty: z.array(PollenCacheDto),
 })
 export type LocationDtoType = z.infer<typeof LocationDto>;

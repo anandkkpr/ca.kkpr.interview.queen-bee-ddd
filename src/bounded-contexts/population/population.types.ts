@@ -1,7 +1,7 @@
 import {z} from "zod";
 import {IntegerPositiveDto, UuidDto} from "../../cross-cutting/types/cross-cutting.types.ts";
 
-export const DenizenRolesEnumDto = z.enum(['queen', 'worker', 'scout']);
+export const DenizenRolesEnumDto = z.enum(['queen', 'harvester', 'scout']);
 export type DenizenRolesEnumDtoType = z.infer<typeof DenizenRolesEnumDto>;
 
 export const DenizenDto = z.object({
@@ -10,6 +10,7 @@ export const DenizenDto = z.object({
     name: z.string().nullish(),
     bio: z.string().nullish(),
     carryCapacityInGrams: IntegerPositiveDto,
+    isHome: z.boolean(),
 })
 export type DenizenDtoType = z.infer<typeof DenizenDto>;
 
