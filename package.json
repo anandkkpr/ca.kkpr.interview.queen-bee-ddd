@@ -1,6 +1,7 @@
 {
   "name": "ca.kkpr.interview.queen-bee-ddd",
   "private": true,
+  "license": "UNLICENSED",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
